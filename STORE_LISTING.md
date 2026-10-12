@@ -50,7 +50,7 @@ PRIVACY AND PERMISSIONS
 - Your token is stored only in your browser's extension storage and is sent only to api.github.com.
 - The extension runs only on leetcode.com problem pages and only talks to leetcode.com and api.github.com.
 - Use a token limited to a single repo, so even in the worst case nothing else on your account is reachable.
-- The source code is public: [link to your GitHub repo]
+- The source code is public: https://github.com/brandenxo/tally
 
 GOOD TO KNOW
 - It saves only accepted submissions, not "Run Code" results or wrong answers.
@@ -76,17 +76,17 @@ LeetCode GitHub sync, push LeetCode solutions to GitHub, LeetCode portfolio, Lee
 | Description | (the full description above) |
 | Categories | Web Development (and one more if offered) |
 | Tags | leetcode, github, sync, coding, portfolio |
-| Support site | your GitHub repo URL |
+| Support site | https://github.com/brandenxo/tally |
 | Support email | optional, but add one you're comfortable making public |
 | License | MIT License |
-| Privacy policy | paste the contents of PRIVACY.md, or its GitHub link |
-| Screenshots | the three in `screenshots/` |
+| Privacy policy | paste the contents of PRIVACY.md, or use https://github.com/brandenxo/tally/blob/main/PRIVACY.md |
+| Screenshots | the four in `screenshots/`, in numbered order |
 
 ## Notes to reviewer (paste into "Notes to Reviewer")
 
 Tally saves a user's accepted LeetCode submissions to the user's own GitHub repository.
 
-- Source is unminified and public: [your GitHub repo URL]. The submitted zip is built from it with `./build.sh` (zip of `src/` plus `platform/firefox/manifest.json`). No build tools or obfuscation.
+- Source is unminified and public: https://github.com/brandenxo/tally. The submitted zip is built from it with `./build.sh` (zip of `src/` plus `platform/firefox/manifest.json`). No build tools or obfuscation.
 - Permissions: `https://leetcode.com/*` content script on `/problems/*` to read the submitted code and "Accepted" result; `https://api.github.com/*` to commit files to the user's repo; `storage` to keep the user's token and settings locally; `notifications` to report sync failures. `https://github.com/login/*` is used only by the optional "Sign in with GitHub" device flow, which is disabled unless an OAuth client ID is set in `config.js` (it ships unset).
 - Data: the only data leaving the browser is the submitted code and problem metadata, sent to api.github.com with the user's token. Nothing is sent to any server operated by the developer. The token is stored in `storage.local`. Declared data collection: authentication information and website content.
 - Why a content script injects `inject.js`: it wraps the page's own `fetch`/`XMLHttpRequest` for LeetCode's `/submit/` and `/check/` endpoints to see the accepted result. It only posts a message to the content script and makes no network requests to other sites.
