@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b2330"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="ok" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3fb950"/>
+      <stop offset="1" stop-color="#238636"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg)"/>
+  <rect x="5" y="5" width="118" height="118" rx="27" fill="none" stroke="#30363d" stroke-width="2"/>
+  <!-- commit graph: main line + branch merging in -->
+  <g fill="none" stroke="#e6edf3" stroke-width="6" stroke-linecap="round">
+    <path d="M40 41 V87"/>
+    <path d="M88 58 C88 80 40 66 40 88"/>
+  </g>
+  <!-- older commits -->
+  <circle cx="40" cy="31" r="10" fill="#0d1117" stroke="#e6edf3" stroke-width="6"/>
+  <circle cx="40" cy="98" r="10" fill="#0d1117" stroke="#e6edf3" stroke-width="6"/>
+  <!-- newest commit = accepted -->
+  <circle cx="88" cy="40" r="20" fill="url(#ok)"/>
+  <path d="M78 40.5 L85.5 48 L99 32.5" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

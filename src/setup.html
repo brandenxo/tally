@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Set up Tally</title>
+<style>
+  :root { color-scheme: dark; --bg:#0d1117; --panel:#161b22; --fg:#e6edf3; --muted:#9198a1; --field:#0d1117; --border:#30363d; --accent:#3fb950; --btn:#238636; --btn-hover:#2ea043; --bad:#f85149; --link:#58a6ff; }
+  a { color:var(--link); }
+  input:focus { outline:none; border-color:var(--link); box-shadow:0 0 0 3px rgba(88,166,255,.25); }
+  .brand { display:flex; align-items:center; gap:12px; margin-bottom:6px; } .brand img { width:40px; height:40px; }
+  body { background:var(--bg); color:var(--fg); font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; max-width:520px; margin:48px auto; padding:0 16px; }
+  h1 { font-size:22px; margin:0 0 6px; }
+  p { margin:0 0 14px; } .muted { color:var(--muted); font-size:13px; }
+  label { display:block; font-weight:600; font-size:13px; margin:18px 0 6px; }
+  input[type=text], input[type=password] { width:100%; box-sizing:border-box; padding:9px 10px; border:1px solid var(--border); border-radius:6px; background:var(--field); color:var(--fg); font:inherit; }
+  .opt { display:flex; gap:10px; align-items:flex-start; margin:8px 0; }
+  .opt input { margin-top:4px; } .opt span { font-size:13px; color:var(--muted); display:block; }
+  button, a.btn { display:inline-block; margin-top:20px; padding:10px 18px; border-radius:6px; border:1px solid var(--btn); background:var(--btn); color:#fff; font:inherit; font-weight:600; cursor:pointer; text-decoration:none; }
+  button.secondary { background:var(--panel); color:var(--fg); border-color:var(--border); margin-left:8px; }
+  .code { font:700 32px/1.2 ui-monospace,Menlo,monospace; letter-spacing:4px; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px; text-align:center; margin:14px 0; user-select:all; }
+  .box { border:1px solid var(--border); border-radius:8px; padding:12px 14px; background:var(--panel); }
+  .err { color:var(--bad); margin-top:14px; white-space:pre-wrap; }
+  .hidden { display:none; }
+  ol { padding-left:20px; } ol.steps li { margin-bottom:10px; } ul { padding-left:20px; } code { background:var(--panel); padding:1px 5px; border-radius:4px; font-size:13px; }
+</style>
+</head>
+<body>
+  <div class="brand"><img src="icons/icon-128.png" alt="" /><h1 style="margin:0">Let's set up your LeetCode repo</h1></div>
+  <p class="muted">About two minutes. We'll fill your repo with a README that updates itself and turn on syncing.</p>
+
+  <div class="box" style="margin-bottom:6px">
+    <b>How it works</b>
+    <ol style="margin:8px 0 0">
+      <li>You solve a problem on LeetCode and click <b>Submit</b>.</li>
+      <li>On <b>Accepted</b>, this extension saves your code to your GitHub repo.</li>
+      <li>A README in that repo keeps a running count of everything you've solved.</li>
+    </ol>
+    <p class="muted" style="margin:8px 0 0">Your code goes only to GitHub. There's no server and no tracking.</p>
+  </div>
+
+  <section id="step-token">
+    <ol class="steps">
+      <li><b>Create an empty repo</b> on GitHub (e.g. <code>leetcode</code>) and tick <b>Add a README</b>.
+        <a href="https://github.com/new" target="_blank" rel="noopener">Create repo ↗</a></li>
+      <li><b>Create a fine-grained token</b> for just that repo.
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Create token ↗</a>
+        <div class="muted">Repository access: <b>Only select repositories</b> → your repo.<br>
+        Permissions: <b>Contents: Read and write</b> and <b>Workflows: Read and write</b>. Expiration: 1 year is fine.</div></li>
+      <li><b>Paste the token and your repo's name here:</b></li>
+    </ol>
+
+    <label for="tok-token">Token</label>
+    <input type="password" id="tok-token" placeholder="github_pat_…" autocomplete="off" />
+    <label for="tok-repo">Repo name</label>
+    <input type="text" id="tok-repo" value="leetcode" spellcheck="false" />
+    <div class="muted" style="margin-top:4px">Just the name you gave it on GitHub. Pasting the repo's link works too.</div>
+
+    <button id="tok-go">Set up my repo</button>
+    <p class="muted" style="margin-top:14px">The token stays in this browser and is only ever sent to api.github.com.
+      <span id="oauth-link" class="hidden"> Or <a href="#" id="use-oauth">sign in with GitHub instead</a>.</span></p>
+  </section>
+
+  <section id="step-choose" class="hidden">
+    <label for="repo">Repo name</label>
+    <input type="text" id="repo" value="leetcode" spellcheck="false" />
+
+    <label>Visibility</label>
+    <div class="opt"><input type="radio" name="vis" id="public" value="public" checked />
+      <div><label for="public" style="margin:0">Public</label><span>Shows up on your GitHub profile. Great for a portfolio. Asks GitHub for access to your public repos only.</span></div></div>
+    <div class="opt"><input type="radio" name="vis" id="private" value="private" />
+      <div><label for="private" style="margin:0">Private</label><span>Only you can see it. GitHub's permission for this covers all your repos, public and private, so choose Public if you're unsure.</span></div></div>
+
+    <button id="go">Connect GitHub &amp; create repo</button>
+  </section>
+
+  <section id="step-auth" class="hidden">
+    <p>1. Open GitHub's device page and enter this code:</p>
+    <div class="code" id="user-code">…</div>
+    <a class="btn" id="open-gh" href="https://github.com/login/device" target="_blank" rel="noopener" style="margin-top:0">Open github.com/login/device</a>
+    <p class="muted" style="margin-top:14px">2. Click <b>Authorize</b>. This page continues on its own once you do. <span id="wait"></span></p>
+  </section>
+
+  <section id="step-working" class="hidden"><p id="working-text">Creating your repo…</p></section>
+
+  <section id="step-done" class="hidden">
+    <h1 style="margin-top:0">You're all set ✅</h1>
+    <p>Your repo is ready: <a id="repo-link" href="#" target="_blank" rel="noopener"></a></p>
+    <ul id="summary" class="muted"></ul>
+    <div id="warnings" class="err" style="margin-top:0"></div>
+    <ol>
+      <li>Open any LeetCode problem (reload tabs that were already open).</li>
+      <li>Solve it and click <b>Submit</b>.</li>
+      <li>When it says <b>Accepted</b>, a green toast confirms the commit.</li>
+    </ol>
+    <p class="muted">You can revoke this extension's access any time at GitHub → Settings → Applications.</p>
+  </section>
+
+  <div id="error" class="err"></div>
+  <button id="retry" class="hidden secondary" style="margin-left:0">Try again</button>
+
+  <script src="config.js"></script>
+  <script src="github.js"></script>
+  <script src="setup.js"></script>
+</body>
+</html>

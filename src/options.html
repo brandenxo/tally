@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Tally — Settings</title>
+<style>
+  :root { color-scheme: dark; --bg:#0d1117; --panel:#161b22; --fg:#e6edf3; --muted:#9198a1; --field:#0d1117; --border:#30363d; --accent:#3fb950; --btn:#238636; --btn-hover:#2ea043; --bad:#f85149; --link:#58a6ff; }
+  a { color:var(--link); }
+  input:focus { outline:none; border-color:var(--link); box-shadow:0 0 0 3px rgba(88,166,255,.25); }
+  .brand { display:flex; align-items:center; gap:12px; margin-bottom:6px; } .brand img { width:40px; height:40px; }
+  body { background:var(--bg); color:var(--fg); font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; max-width:560px; margin:40px auto; padding:0 16px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  p.sub { color:var(--muted); margin:0 0 24px; }
+  label { display:block; font-weight:600; font-size:13px; margin:16px 0 6px; }
+  input[type=text], input[type=password] { width:100%; box-sizing:border-box; padding:8px 10px; border:1px solid var(--border); border-radius:6px; background:var(--field); color:var(--fg); font:inherit; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .check { display:flex; gap:8px; align-items:center; margin-top:14px; }
+  .check label { margin:0; font-weight:400; }
+  .hint { color:var(--muted); font-size:12px; margin-top:4px; }
+  .buttons { display:flex; gap:10px; margin-top:24px; }
+  button { padding:8px 16px; border-radius:6px; border:1px solid var(--border); background:var(--panel); color:var(--fg); font:inherit; font-weight:600; cursor:pointer; }
+  button.primary:hover, button:not(.secondary):hover { filter:brightness(1.12); }
+  button.primary { background:var(--btn); border-color:var(--btn); color:#fff; }
+  #status { margin-top:14px; min-height:20px; }
+  .ok { color:var(--accent); } .bad { color:var(--bad); }
+  code { background:var(--panel); padding:1px 5px; border-radius:4px; font-size:12px; }
+  details { margin-top:28px; color:var(--muted); }
+</style>
+</head>
+<body>
+  <div class="brand"><img src="icons/icon-128.png" alt="" /><h1 style="margin:0">Tally</h1></div>
+  <p class="sub">Accepted LeetCode submissions get committed to this repo.</p>
+
+  <label for="token">GitHub token</label>
+  <input type="password" id="token" autocomplete="off" placeholder="github_pat_…" />
+  <div class="hint">Use a fine-grained token limited to this one repo, with <code>Contents: Read and write</code>.</div>
+
+  <div class="row">
+    <div><label for="owner">Owner</label><input type="text" id="owner" placeholder="your-username" /></div>
+    <div><label for="repo">Repo</label><input type="text" id="repo" placeholder="leetcode" /></div>
+  </div>
+  <div class="row">
+    <div><label for="branch">Branch</label><input type="text" id="branch" placeholder="(repo default)" /></div>
+    <div><label for="folder">Folder</label><input type="text" id="folder" placeholder="(repo root)" /></div>
+  </div>
+
+  <div class="check"><input type="checkbox" id="byDifficulty" /><label for="byDifficulty">Sort into <code>easy/</code>, <code>medium/</code>, <code>hard/</code> folders</label></div>
+  <div class="check"><input type="checkbox" id="header" /><label for="header">Add a comment header (title, link, runtime) to each file</label></div>
+
+  <div class="buttons">
+    <button class="primary" id="save">Save</button>
+    <button id="test">Test connection</button>
+  </div>
+  <div id="status"></div>
+
+  <details>
+    <summary>Where does my token go?</summary>
+    <p>It's stored in this browser's extension storage and sent only to <code>api.github.com</code>. The extension has no other network access.</p>
+  </details>
+
+  <script src="github.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

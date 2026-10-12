@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root { color-scheme: dark; --bg:#0d1117; --panel:#161b22; --fg:#e6edf3; --muted:#9198a1; --field:#0d1117; --border:#30363d; --accent:#3fb950; --btn:#238636; --btn-hover:#2ea043; --bad:#f85149; --link:#58a6ff; }
+  a { color:var(--link); }
+  input:focus { outline:none; border-color:var(--link); box-shadow:0 0 0 3px rgba(88,166,255,.25); }
+  .brand { display:flex; align-items:center; gap:12px; margin-bottom:6px; } .brand img { width:40px; height:40px; }
+  body { background:var(--bg); color:var(--fg); font:13px/1.45 system-ui,sans-serif; width:270px; margin:0; padding:14px; }
+  h2 { font-size:14px; margin:0 0 10px; }
+  p { margin:0 0 6px; color:var(--muted); word-break:break-word; }
+  .ok { color:var(--accent); } .bad { color:var(--bad); }
+  button { width:100%; margin-top:10px; padding:7px; border:1px solid var(--border); border-radius:6px; background:var(--panel); color:var(--fg); font:inherit; cursor:pointer; }
+</style>
+</head>
+<body>
+  <div class="brand" style="gap:8px"><img src="icons/icon-32.png" alt="" style="width:24px;height:24px" /><h2 style="margin:0">Tally</h2></div>
+  <p id="config">Checking…</p>
+  <p id="last">Nothing synced yet.</p>
+  <button id="setup" style="display:none">Run setup</button>
+  <button id="settings">Settings</button>
+  <script src="popup.js"></script>
+</body>
+</html>
